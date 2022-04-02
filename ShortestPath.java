@@ -34,8 +34,8 @@ public class ShortestPath {
 	ShortestPath(String stops, String transfers, String stopTimes)
 	{	
 		parseStops(stops);
-		parseTransfers(transfers);
 		parseStopTimes(stopTimes);
+		parseTransfers(transfers);
 
 	}
 	private void parseStopTimes(String stopTimes) {
@@ -99,7 +99,46 @@ public class ShortestPath {
 		}	
 	}
 	private void parseTransfers(String transfers) {
+		if (transfers == null) {
+			return;
+		}
+		File a = new File(transfers);
+		if (a.length() != 0){
+			Scanner input = null;
+			try {
+				input = new Scanner(a);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			int prevTripId = -1;
+			int prevNodeName = -1;
+			String firstLine = input.nextLine();
+			System.out.println(firstLine);
+			while (input.hasNextLine()) {
+				String times = input.nextLine();
+				String[] data = times.split(",");
+				int tripId = Integer.parseInt(data[0]);
+				int nodeName = Integer.parseInt(data[3]);
 		
+				// If stopId has negative numbers try change this
+				if (tripId == prevTripId || prevTripId == -1) {
+					ArrayList<Edge> list = new ArrayList<Edge>(); 
+					
+					if (Vertices.containsKey(prevNodeName)) {
+						list = (ArrayList<Edge>)Vertices.get(prevNodeName);
+					}
+					Edge workingEdge = new Edge(nodeName, 1);
+					
+					list.add(workingEdge);
+					Vertices.put(prevNodeName, list);
+					System.out.print(prevNodeName + "->");
+					workingEdge.toPrint();
+				}		
+				prevNodeName = nodeName;
+				prevTripId = tripId;
+			}	
+		}	
 	}
 	private void parseStops(String stops) 
 	{
