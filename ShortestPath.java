@@ -23,6 +23,10 @@ public class ShortestPath {
 			this.destVertex = destVertex;
 			this.weight = weight;
 		}
+		
+		public void toPrint() {
+			System.out.println( destVertex + " -> " + weight);
+		}
 	}
 	
 	HashMap<Integer, List<Edge>> Vertices = new HashMap<Integer, List<Edge>>();
@@ -49,11 +53,13 @@ public class ShortestPath {
 			}
 			int prevTripId = -1;
 			int prevNodeName = -1;
+			String firstLine = input.nextLine();
+			System.out.println(firstLine);
 			while (input.hasNextLine()) {
 				String times = input.nextLine();
 				String[] data = times.split(",");
 				int tripId = Integer.parseInt(data[0]);
-				int nodeName = Integer.parseInt(data[0]);
+				int nodeName = Integer.parseInt(data[3]);
 				
 				
 //			    	int originVertex = input.nextInt();
@@ -72,8 +78,7 @@ public class ShortestPath {
 //			    	
 //			    	}		
 //				}
-				
-				
+		
 				// If stopId has negative numbers try change this
 				if (tripId == prevTripId || prevTripId == -1) {
 					ArrayList<Edge> list = new ArrayList<Edge>(); 
@@ -82,9 +87,11 @@ public class ShortestPath {
 						list = (ArrayList<Edge>)Vertices.get(prevNodeName);
 					}
 					Edge workingEdge = new Edge(nodeName, 1);
+					
 					list.add(workingEdge);
 					Vertices.put(prevNodeName, list);
-					
+					System.out.print(prevNodeName + "->");
+					workingEdge.toPrint();
 				}		
 				prevNodeName = nodeName;
 				prevTripId = tripId;
