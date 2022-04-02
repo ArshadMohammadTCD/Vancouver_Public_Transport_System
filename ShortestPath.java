@@ -12,6 +12,7 @@ import java.util.Scanner;
 
 
 
+
 public class ShortestPath {
 	
 	
@@ -38,6 +39,60 @@ public class ShortestPath {
 		parseTransfers(transfers);
 
 	}
+    
+    int min_distance(double[] dist, boolean[] finished) {
+    	double min = Integer.MAX_VALUE;
+    	// possible problem to note when debugging	
+    	int index = 0;
+    	for(int i = 0; i < Vertices.size(); i++) {
+    		if(dist[i] <= min && finished[i] == false) {
+    			min = dist[i];
+    			index = i;
+    		}
+    	}
+    	return index;
+    }	
+    
+    
+    
+    private double dijkstra(int src){ 
+    	boolean[] finished;
+    	finished = new boolean[Vertices.size()];
+	    
+	    for (int i = 0; i < Vertices.size(); i++) {
+	    	finished[i] = false;
+ 	    }
+    	double[] dist;
+    	dist = new double[Vertices.size()];
+    	for (int i = 0; i < Vertices.size(); i++) {
+    		dist[i] = Integer.MAX_VALUE;
+    	}
+    	dist[src] = 0;
+    	
+    	
+    	
+    	for (int i = 0; i < Vertices.size()-1; i++) {
+    		int u = min_distance(dist, finished);
+    		finished[u] = true;
+    		List<Edge> workingEdges = Vertices.get(u);
+    		
+    		
+    		
+    		if (workingEdges != null) {
+    			for(int j =0; j < workingEdges.size(); j++) {
+        			if(!finished[workingEdges.get(j).destVertex]) {
+        				int v = workingEdges.get(j).destVertex;
+        				double alt = dist[u] + workingEdges.get(j).weight;
+        				if (alt < dist[v]) {
+        					dist[v] = alt; 
+        				}
+        			}
+        		}
+    		}	
+    	}
+    	return 0;
+    }
+	
 	private void parseStopTimes(String stopTimes) {
 		if (stopTimes == null) {
 			return;
@@ -61,25 +116,6 @@ public class ShortestPath {
 				int tripId = Integer.parseInt(data[0]);
 				int nodeName = Integer.parseInt(data[3]);
 				
-				
-//			    	int originVertex = input.nextInt();
-//			    	int destVertex = input.nextInt();
-//			    	double weight = input.nextDouble(); 
-//			    	ArrayList<Edge> list = new ArrayList<Edge>();
-//			    	if (Vertices.containsKey(originVertex)){
-//			    		list = (ArrayList<CompetitionDijkstra.Edge>) 
-//			    				Vertices.get(originVertex);
-//			    	}
-//			 
-//			    	Edge workingEdge = new Edge(destVertex, weight);
-//			    	list.add(workingEdge);
-//			    	
-//			    	Vertices.put(originVertex, list);
-//			    	
-//			    	}		
-//				}
-		
-				// If stopId has negative numbers try change this
 				if (tripId == prevTripId || prevTripId == -1) {
 					ArrayList<Edge> list = new ArrayList<Edge>(); 
 					
