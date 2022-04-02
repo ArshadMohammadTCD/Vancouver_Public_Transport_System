@@ -111,32 +111,38 @@ public class ShortestPath {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			int prevTripId = -1;
-			int prevNodeName = -1;
 			String firstLine = input.nextLine();
 			System.out.println(firstLine);
 			while (input.hasNextLine()) {
 				String times = input.nextLine();
 				String[] data = times.split(",");
-				int tripId = Integer.parseInt(data[0]);
-				int nodeName = Integer.parseInt(data[3]);
-		
+				
+				double weight;
+				int originVertex = Integer.parseInt(data[0]);
+				int destVertex = Integer.parseInt(data[1]);
+				if (Integer.parseInt(data[2]) == 0) {
+					weight = 2; 
+				}
+				else {
+					weight = (Integer.parseInt(data[3])/100);
+				}
+				
 				// If stopId has negative numbers try change this
-				if (tripId == prevTripId || prevTripId == -1) {
-					ArrayList<Edge> list = new ArrayList<Edge>(); 
+				
+				ArrayList<Edge> list = new ArrayList<Edge>(); 
+				
+				if (Vertices.containsKey(originVertex)) {
+					list = (ArrayList<Edge>)Vertices.get(originVertex);
+				}
+				
+				Edge workingEdge = new Edge(destVertex, weight);
+				
+				list.add(workingEdge);
+				Vertices.put(originVertex, list);
+				System.out.print(originVertex + "->");
+				workingEdge.toPrint();
 					
-					if (Vertices.containsKey(prevNodeName)) {
-						list = (ArrayList<Edge>)Vertices.get(prevNodeName);
-					}
-					Edge workingEdge = new Edge(nodeName, 1);
-					
-					list.add(workingEdge);
-					Vertices.put(prevNodeName, list);
-					System.out.print(prevNodeName + "->");
-					workingEdge.toPrint();
-				}		
-				prevNodeName = nodeName;
-				prevTripId = tripId;
+				
 			}	
 		}	
 	}
@@ -159,7 +165,7 @@ public class ShortestPath {
 	}
 
 	public static void main(String[] args) {
-		ShortestPath SP = new ShortestPath("src/stops.txt","transfers.txt", "src/stop_times.txt");
+		ShortestPath SP = new ShortestPath("src/stops.txt","src/transfers.txt", "src/stop_times.txt");
 		
 
 	}
