@@ -106,18 +106,15 @@ public class ShortestPath {
 			checked.remove(u);
 		
 			List<Edge> workingEdges = Vertices.get(dist[1][u]);
-			for (int v : checked) {
-				
-//				workingEdges
-				// major slow down incoming.
-				
-				
-				
-				
-				
-				
-
-
+			for(int j =0; j < workingEdges.size(); j++) {
+				if (checked.contains(workingEdges.get(j).destVertex)){
+					int v = workingEdges.get(j).destVertex;
+					int alt = dist[0][u] + (int)workingEdges.get(j).weight;
+					if(alt < dist[0][v]) {
+						dist[0][v] = alt;
+						
+					}
+				}
 			}
 		}
 	}  
@@ -204,7 +201,7 @@ public class ShortestPath {
 			int prevTripId = -1;
 			int prevNodeName = -1;
 			String firstLine = input.nextLine();
-			System.out.println(firstLine);
+//			System.out.println(firstLine);
 			while (input.hasNextLine()) {
 				String times = input.nextLine();
 				String[] data = times.split(",");
@@ -221,8 +218,8 @@ public class ShortestPath {
 
 					list.add(workingEdge);
 					Vertices.put(prevNodeName, list);
-					System.out.print(prevNodeName + "->");
-					workingEdge.toPrint();
+//					System.out.print(prevNodeName + "->");
+//					workingEdge.toPrint();
 				}		
 				prevNodeName = nodeName;
 				prevTripId = tripId;
@@ -243,7 +240,7 @@ public class ShortestPath {
 				e.printStackTrace();
 			}
 			String firstLine = input.nextLine();
-			System.out.println(firstLine);
+//			System.out.println(firstLine);
 			while (input.hasNextLine()) {
 				String times = input.nextLine();
 				String[] data = times.split(",");
@@ -270,8 +267,8 @@ public class ShortestPath {
 
 				list.add(workingEdge);
 				Vertices.put(originVertex, list);
-				System.out.print(originVertex + "->");
-				workingEdge.toPrint();
+//				System.out.print(originVertex + "->");
+//				workingEdge.toPrint();
 
 
 			}	
@@ -299,7 +296,7 @@ public class ShortestPath {
 
 
 		ShortestPath SP = new ShortestPath("src/stops.txt","src/transfers.txt", "src/stop_times.txt");
-		//		double[] dijkstra = SP.dijkstra(1);
+				SP.dijkstra(646);
 
 
 		//		System.out.println(dijkstra[5]);
