@@ -47,22 +47,22 @@ public class ShortestPath {
 	}
 
 	HashMap<Integer, Boolean> Finished = new HashMap<Integer, Boolean>();
-	HashMap<Integer, Double> Dist = new HashMap<Integer, Double>();
-
+	HashMap<Integer, Integer> IndexMap = new HashMap<Integer, Integer>();
+	
+	
 	int min_distance(int[][] dist, ArrayList<Integer> checked) {
 		double min = Integer.MAX_VALUE;
 		// possible problem to note when debugging	
 		int index = 0;
 		//    	for(int i = 0; i < Vertices.size(); i++) {
-		int i = 0;
-		for (int v : checked) {
+	
+		for(int i = 0; i < checked.size(); i++) {
+    		if(dist[0][i] <= min && checked.contains(i) == true) {
+    			min = dist[0][i];
+    			index = i;
+    		}
+    	}
 			
-			if(dist[0][i] <= min && checked.contains(v) == true) {
-				min = dist[0][i];
-				index = i;
-			}
-			i++;
-		}	
 
 		return index;
 	}	
@@ -91,29 +91,33 @@ public class ShortestPath {
 			else {
 				dist[0][count] = Integer.MAX_VALUE;
 			}
-
+			
 			dist[1][count] = stopId;
 			prev[count] = -1;	
-			count++;
-
-			// Add v to Q
+			
+			IndexMap.put(stopId, count);
 			checked.add(count);
+			count++;
+			// Add v to Q
+			
 			
 		}
-
-		while (!checked.isEmpty()) {
+		int sizeOfVertices = checked.size();
+		for (int i = 0; i < sizeOfVertices-1; i++)  {
 			int u = min_distance(dist, checked);
 			checked.remove(u);
 		
 			List<Edge> workingEdges = Vertices.get(dist[1][u]);
 			for(int j =0; j < workingEdges.size(); j++) {
-				if (checked.contains(workingEdges.get(j).destVertex)){
+//				if (checked.contains(IndexMap.get(workingEdges.get(j).destVertex))){
 					int v = workingEdges.get(j).destVertex;
 					int alt = dist[0][u] + (int)workingEdges.get(j).weight;
-					if(alt < dist[0][v]) {
-						dist[0][v] = alt;
-						
-					}
+					// Problem is V not having the right index
+					int indexV = IndexMap.get(v);
+					if(alt < dist[0][indexV]) {
+						dist[0][indexV] = alt;
+						System.out.println("Distance from " + src + " to " + v + " is " + alt);
+//					}
 				}
 			}
 		}
@@ -164,9 +168,7 @@ public class ShortestPath {
 	//        		}
 	//    		}	
 	//    	}
-	//    	return dist;
-
-	
+	//    	return dist;	
 //	private int findItemInDist(int dist[][], int item)
 //	{
 //		for(int i = 0; i < Vertices.size(); i++) {
@@ -181,10 +183,6 @@ public class ShortestPath {
 //		
 //		
 //	}
-	
-	
-	
-
 	private void parseStopTimes(String stopTimes) {
 		if (stopTimes == null) {
 			return;
@@ -201,7 +199,7 @@ public class ShortestPath {
 			int prevTripId = -1;
 			int prevNodeName = -1;
 			String firstLine = input.nextLine();
-//			System.out.println(firstLine);
+			System.out.println(firstLine);
 			while (input.hasNextLine()) {
 				String times = input.nextLine();
 				String[] data = times.split(",");
@@ -215,11 +213,10 @@ public class ShortestPath {
 						list = (ArrayList<Edge>)Vertices.get(prevNodeName);
 					}
 					Edge workingEdge = new Edge(nodeName, 1);
-
 					list.add(workingEdge);
 					Vertices.put(prevNodeName, list);
-//					System.out.print(prevNodeName + "->");
-//					workingEdge.toPrint();
+					System.out.print(prevNodeName + "->");
+					workingEdge.toPrint();
 				}		
 				prevNodeName = nodeName;
 				prevTripId = tripId;
@@ -295,8 +292,8 @@ public class ShortestPath {
 	public static void main(String[] args) {
 
 
-		ShortestPath SP = new ShortestPath("src/stops.txt","src/transfers.txt", "src/stop_times.txt");
-				SP.dijkstra(646);
+		ShortestPath SP = new ShortestPath("src/stops.txt","", "src/testing_files_stop_times.txt");
+		SP.dijkstra(646);
 
 
 		//		System.out.println(dijkstra[5]);
