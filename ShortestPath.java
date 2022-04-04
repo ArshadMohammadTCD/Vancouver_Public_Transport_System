@@ -110,7 +110,7 @@ public class ShortestPath {
 		
 			List<Edge> workingEdges = Vertices.get(dist[1][u]);
 			for(int j =0; j < workingEdges.size(); j++) {
-//				if (checked.contains(IndexMap.get(workingEdges.get(j).destVertex))){
+				if (!checked[IndexMap.get(workingEdges.get(j).destVertex)]){
 					int v = workingEdges.get(j).destVertex;
 					int alt = dist[0][u] + (int)workingEdges.get(j).weight;
 					// Problem is V not having the right index
@@ -118,7 +118,7 @@ public class ShortestPath {
 					if(alt < dist[0][indexV]) {
 						dist[0][indexV] = alt;
 						System.out.println("Distance from " + src + " to " + v + " is " + alt);
-//					}
+					}
 				}
 			}
 		}
@@ -293,7 +293,7 @@ public class ShortestPath {
 	public static void main(String[] args) {
 
 
-		ShortestPath SP = new ShortestPath("src/stops.txt","", "src/testing_files_stop_times.txt");
+		ShortestPath SP = new ShortestPath("src/stops.txt","", "src/stop_times.txt");
 		SP.dijkstra(646);
 
 
