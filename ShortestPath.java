@@ -50,14 +50,14 @@ public class ShortestPath {
 	HashMap<Integer, Integer> IndexMap = new HashMap<Integer, Integer>();
 	
 	
-	int min_distance(int[][] dist, ArrayList<Integer> checked) {
+	int min_distance(int[][] dist, boolean checked[]) {
 		double min = Integer.MAX_VALUE;
 		// possible problem to note when debugging	
 		int index = 0;
 		//    	for(int i = 0; i < Vertices.size(); i++) {
 	
-		for(int i = 0; i < checked.size(); i++) {
-    		if(dist[0][i] <= min && checked.contains(i) == true) {
+		for(int i = 0; i < Vertices.size(); i++) {
+    		if(dist[0][i] <= min && checked[i] == false) {
     			min = dist[0][i];
     			index = i;
     		}
@@ -73,7 +73,8 @@ public class ShortestPath {
 
 		int dist[][] = new int[2][Vertices.size()];
 		int prev[] = new int[Vertices.size()]; 
-		ArrayList<Integer> checked = new ArrayList();
+		boolean[] checked = new boolean[Vertices.size()];
+//		ArrayList<Integer> checked = new ArrayList();
 
 
 		// Initialising distance array and previous stopId array
@@ -96,16 +97,16 @@ public class ShortestPath {
 			prev[count] = -1;	
 			
 			IndexMap.put(stopId, count);
-			checked.add(count);
+			checked[count] = false;
 			count++;
 			// Add v to Q
 			
 			
 		}
-		int sizeOfVertices = checked.size();
+		int sizeOfVertices = Vertices.size();
 		for (int i = 0; i < sizeOfVertices-1; i++)  {
 			int u = min_distance(dist, checked);
-			checked.remove(u);
+			checked[u] = true;
 		
 			List<Edge> workingEdges = Vertices.get(dist[1][u]);
 			for(int j =0; j < workingEdges.size(); j++) {
