@@ -206,7 +206,7 @@ public class ShortestPath {
 				int tripId = Integer.parseInt(data[0]);
 				int nodeName = Integer.parseInt(data[3]);
 
-				if (tripId == prevTripId || prevTripId == -1) {
+				if (tripId == prevTripId && prevTripId != -1) {
 					ArrayList<Edge> list = new ArrayList<Edge>(); 
 
 					if (Vertices.containsKey(prevNodeName)) {
