@@ -73,12 +73,15 @@ public class ShortestPath {
 
 		int dist[][] = new int[2][Vertices.size()];
 		int prev[] = new int[Vertices.size()]; 
-		boolean[] checked = new boolean[Vertices.size()];
+		boolean[] checked = new boolean[Vertices.size()+1];
 //		ArrayList<Integer> checked = new ArrayList();
 
 
 		// Initialising distance array and previous stopId array
-		Iterator stopIdIterator = Vertices.keySet().iterator();
+		
+		
+		
+		Iterator<Integer>  stopIdIterator = Vertices.keySet().iterator();
 		int count = 0;
 
 
@@ -86,6 +89,8 @@ public class ShortestPath {
 		//prev[v] ← UNDEFINED 
 		while(stopIdIterator.hasNext()) {
 			int stopId = (int) stopIdIterator.next();
+			System.out.println("Printing StopId from the iterator " + stopId);
+			
 			if (stopId == src) {
 				dist[0][count] = 0;
 			}
@@ -96,6 +101,7 @@ public class ShortestPath {
 			dist[1][count] = stopId;
 			prev[count] = -1;	
 			
+	
 			IndexMap.put(stopId, count);
 			checked[count] = false;
 			count++;
@@ -103,15 +109,22 @@ public class ShortestPath {
 			
 			
 		}
+		
+		
+		
+		
+		
 		int sizeOfVertices = Vertices.size();
-		for (int i = 0; i < sizeOfVertices-1; i++)  {
+		for (int i = 0; i < sizeOfVertices -1; i++)  {
 			int u = min_distance(dist, checked);
 			checked[u] = true;
 		
 			List<Edge> workingEdges = Vertices.get(dist[1][u]);
 			for(int j =0; j < workingEdges.size(); j++) {
-				if (!checked[IndexMap.get(workingEdges.get(j).destVertex)]){
-					int v = workingEdges.get(j).destVertex;
+				
+				int v = workingEdges.get(j).destVertex;
+				if (!checked[IndexMap.get(v)]){
+					
 					int alt = dist[0][u] + (int)workingEdges.get(j).weight;
 					// Problem is V not having the right index
 					int indexV = IndexMap.get(v);
@@ -123,67 +136,6 @@ public class ShortestPath {
 			}
 		}
 	}  
-
-	//    public double[] dijkstra(int src){ 😎
-	//    	Iterator vertexIterator = Vertices.keySet().iterator();
-	//	    while(vertexIterator.hasNext()) {
-	//	    	int stopId = (int) vertexIterator.next();
-	//	    	Finished.put(stopId, false);
-	//	    	System.out.println(stopId);
-	//	    	dist[i] = Integer.MAX_VALUE;
-	//	    }
-	//    	
-	//    	
-	//	    
-	//	    
-	//    	
-	//    	for (int i = 0; i < Vertices.size(); i++) {
-	//    		
-	//    	}
-	//    	
-	//    	
-	//    	
-	//    	
-	//    	for (int i = 0; i < Vertices.size()-1; i++) {
-	//    		int u = min_distance(dist, Finished);
-	//    		Finished.remove(u);
-	//    		Finished.put(u, true);
-	//    		List<Edge> workingEdges = Vertices.get(u);
-	//    		
-	//    		
-	//    		
-	//    		if (workingEdges != null) {
-	////    			for(int j =0; j < workingEdges.size(); j++) {
-	//    		    int j = 0;
-	//    			while(vertexIterator.hasNext()) {	
-	//    		    	int stopId = (int) vertexIterator.next();
-	//    		    	
-	//        			if(!Finished.get(workingEdges.get(j).destVertex)) {
-	//        				int v = workingEdges.get(j).destVertex;
-	//        				double alt = dist[u] + workingEdges.get(j).weight;
-	//        				if (alt < dist[v]) {
-	//        					dist[v] = alt; 
-	//        				}
-	//        			}
-	//        			j++;
-	//        		}
-	//    		}	
-	//    	}
-	//    	return dist;	
-//	private int findItemInDist(int dist[][], int item)
-//	{
-//		for(int i = 0; i < Vertices.size(); i++) {
-//			if (dist[0][i] == item) {
-//				return dist[1][i];
-//			}
-//			
-//		}
-//		System.out.println("Something went wrong in findItemInDist function: ShortestPath Class");
-//		return item;
-//		
-//		
-//		
-//	}
 	private void parseStopTimes(String stopTimes) {
 		if (stopTimes == null) {
 			return;
@@ -221,7 +173,13 @@ public class ShortestPath {
 				}		
 				prevNodeName = nodeName;
 				prevTripId = tripId;
-			}	
+			}
+			ArrayList<Edge> list = new ArrayList<Edge>(); 
+			list = null;
+			Vertices.put(prevNodeName, list);
+			System.out.print(prevNodeName + "->");
+			
+			
 		}	
 	}
 	private void parseTransfers(String transfers) {
@@ -291,11 +249,26 @@ public class ShortestPath {
 	}
 
 	public static void main(String[] args) {
+        Map<Character, String> charType
+        = new HashMap<Character, String>();
 
+    // Inserting data in the hash map.
+    charType.put('J', "Java");
+    charType.put('H', "Hibernate");
+    charType.put('P', "Python");
+    charType.put('A', "Angular");
 
-		ShortestPath SP = new ShortestPath("src/stops.txt","", "src/stop_times.txt");
+    // Iterating HashMap through forEach and
+    // Printing all. elements in a Map
+    charType.forEach(
+        (key, value)
+            -> System.out.println(key + " = " + value));
+		
+		
+
+		ShortestPath SP = new ShortestPath("src/stops.txt","transfers.txt", "src/stop_times.txt");
 		SP.dijkstra(646);
-
+		
 
 		//		System.out.println(dijkstra[5]);
 
