@@ -123,16 +123,23 @@ public class ShortestPath {
 			for(int j =0; j < workingEdges.size(); j++) {
 				
 				int v = workingEdges.get(j).destVertex;
-				if (!checked[IndexMap.get(v)]){
-					
-					int alt = dist[0][u] + (int)workingEdges.get(j).weight;
-					// Problem is V not having the right index
-					int indexV = IndexMap.get(v);
-					if(alt < dist[0][indexV]) {
-						dist[0][indexV] = alt;
-						System.out.println("Distance from " + src + " to " + v + " is " + alt);
+				
+				if (!IndexMap.containsKey(v)) {
+					System.out.println(v + " does not exist in the IndexMap");
+				}
+				else {
+					if (!checked[IndexMap.get(v)] && IndexMap.containsKey(v)){
+						
+						int alt = dist[0][u] + (int)workingEdges.get(j).weight;
+						// Problem is V not having the right index
+						int indexV = IndexMap.get(v);
+						if(alt < dist[0][indexV] && alt > 0) {
+							dist[0][indexV] = alt;
+							System.out.println("Distance from " + src + " to " + v + " is " + alt);
+						}
 					}
 				}
+			
 			}
 		}
 	}  
@@ -158,7 +165,6 @@ public class ShortestPath {
 				String[] data = times.split(",");
 				int tripId = Integer.parseInt(data[0]);
 				int nodeName = Integer.parseInt(data[3]);
-
 				if (tripId == prevTripId && prevTripId != -1) {
 					ArrayList<Edge> list = new ArrayList<Edge>(); 
 
@@ -170,12 +176,30 @@ public class ShortestPath {
 					Vertices.put(prevNodeName, list);
 					System.out.print(prevNodeName + "->");
 					workingEdge.toPrint();
-				}		
+				}
+				else {
+					ArrayList<Edge>list = new ArrayList<Edge>() ;
+					if (Vertices.containsKey(prevNodeName)) {
+						list = (ArrayList<Edge>)Vertices.get(prevNodeName);
+	
+					}
+					Edge workingEdge = new Edge(prevNodeName, 0);
+					list.add(workingEdge);
+					Vertices.put(prevNodeName, list);
+					System.out.print(prevNodeName + "->");
+					workingEdge.toPrint();
+				}
+				
 				prevNodeName = nodeName;
 				prevTripId = tripId;
 			}
 			ArrayList<Edge> list = new ArrayList<Edge>(); 
-			list = null;
+			if (Vertices.containsKey(prevNodeName)) {
+				list = (ArrayList<Edge>)Vertices.get(prevNodeName);
+
+			}
+			Edge workingEdge = new Edge(prevNodeName, 0);
+			list.add(workingEdge);
 			Vertices.put(prevNodeName, list);
 			System.out.print(prevNodeName + "->");
 			
@@ -268,7 +292,6 @@ public class ShortestPath {
 
 		ShortestPath SP = new ShortestPath("src/stops.txt","transfers.txt", "src/stop_times.txt");
 		SP.dijkstra(646);
-		
 
 		//		System.out.println(dijkstra[5]);
 
