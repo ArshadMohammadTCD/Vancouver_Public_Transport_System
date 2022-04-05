@@ -17,6 +17,7 @@ import java.util.Scanner;
 // https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm for dijkstras algorithm
 // https://www.youtube.com/watch?v=dUCkwBpg1qM
 //https://www.javainterviewpoint.com/iterate-through-hashmap/
+//https://www.geeksforgeeks.org/printing-paths-dijkstras-shortest-path-algorithm/
 
 
 public class ShortestPath {
@@ -37,7 +38,11 @@ public class ShortestPath {
 	}
 
 	HashMap<Integer, List<Edge>> Vertices = new HashMap<Integer, List<Edge>>();
-
+	int NO_PARENT = -1;
+	HashMap<Integer, Boolean> Finished = new HashMap<Integer, Boolean>();
+	HashMap<Integer, Integer> IndexMap = new HashMap<Integer, Integer>();
+	
+	
 	ShortestPath(String stops, String transfers, String stopTimes)
 	{	
 		parseStops(stops);
@@ -46,9 +51,6 @@ public class ShortestPath {
 
 	}
 
-	HashMap<Integer, Boolean> Finished = new HashMap<Integer, Boolean>();
-	HashMap<Integer, Integer> IndexMap = new HashMap<Integer, Integer>();
-	
 	
 	int min_distance(int[][] dist, boolean checked[]) {
 		double min = Integer.MAX_VALUE;
@@ -68,7 +70,7 @@ public class ShortestPath {
 	}	
 
 
-	public void dijkstra(int src) 
+	public void dijkstra(int src, int target) 
 	{
 
 		int dist[][] = new int[2][Vertices.size()];
@@ -110,8 +112,11 @@ public class ShortestPath {
 			
 		}
 		
-		
-		
+//		9017928, 5:45:00, 5:45:00,646,1,,0,0,
+//		9017928, 5:45:50, 5:45:50,378,2,,0,0,0.3300
+//		9017928, 5:46:28, 5:46:28,379,3,,0,0,0.5780
+//		9017928, 5:47:33, 5:47:33,381,4,,0,0,1.0061
+//		
 		
 		
 		int sizeOfVertices = Vertices.size();
@@ -133,8 +138,14 @@ public class ShortestPath {
 						int alt = dist[0][u] + (int)workingEdges.get(j).weight;
 						// Problem is V not having the right index
 						int indexV = IndexMap.get(v);
+						
+						// I said --> If alt > 0 and I am not sure if this is correct.
+						
+						
+						
 						if(alt < dist[0][indexV] && alt > 0) {
 							dist[0][indexV] = alt;
+							prev[indexV] = u;
 							System.out.println("Distance from " + src + " to " + v + " is " + alt);
 						}
 					}
@@ -142,6 +153,7 @@ public class ShortestPath {
 			
 			}
 		}
+		this.printPath(2, prev);
 	}  
 	private void parseStopTimes(String stopTimes) {
 		if (stopTimes == null) {
@@ -252,6 +264,8 @@ public class ShortestPath {
 
 
 			}	
+			
+			
 		}	
 	}
 	private void parseStops(String stops) 
@@ -271,28 +285,29 @@ public class ShortestPath {
 			}	
 		}
 	}
+	
+	
+	 private static void printPath(int currentVertex,
+             int[] parents)
+{
+
+	// Base case : Source node has
+	// been processed
+	if (currentVertex == -1)
+	{
+	return;
+	}
+	printPath(parents[currentVertex], parents);
+	System.out.print(currentVertex + " ");
+	}
 
 	public static void main(String[] args) {
-        Map<Character, String> charType
-        = new HashMap<Character, String>();
-
-    // Inserting data in the hash map.
-    charType.put('J', "Java");
-    charType.put('H', "Hibernate");
-    charType.put('P', "Python");
-    charType.put('A', "Angular");
-
-    // Iterating HashMap through forEach and
-    // Printing all. elements in a Map
-    charType.forEach(
-        (key, value)
-            -> System.out.println(key + " = " + value));
+		ShortestPath SP = new ShortestPath("src/stops.txt","src/transfers.txt", "src/stop_times.txt");
+		SP.dijkstra(646, 381);
 		
 		
-
-		ShortestPath SP = new ShortestPath("src/stops.txt","transfers.txt", "src/stop_times.txt");
-		SP.dijkstra(646);
-
+		
+		
 		//		System.out.println(dijkstra[5]);
 
 	}
