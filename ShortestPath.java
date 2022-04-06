@@ -17,8 +17,8 @@ import javax.swing.JFrame;
 
 
 
-// https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm for dijkstras algorithm
-// https://www.youtube.com/watch?v=dUCkwBpg1qM
+//https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm for dijkstras algorithm
+//https://www.youtube.com/watch?v=dUCkwBpg1qM
 //https://www.javainterviewpoint.com/iterate-through-hashmap/
 //https://www.geeksforgeeks.org/printing-paths-dijkstras-shortest-path-algorithm/
 
@@ -41,10 +41,7 @@ public class ShortestPath {
 
 	int min_distance(int[][] dist, boolean checked[]) {
 		double min = Integer.MAX_VALUE;
-		// possible problem to note when debugging	
 		int index = 0;
-		//    	for(int i = 0; i < Vertices.size(); i++) {
-
 		for(int i = 0; i < Vertices.size(); i++) {
 			if(dist[0][i] <= min && checked[i] == false) {
 				min = dist[0][i];
@@ -64,28 +61,16 @@ public class ShortestPath {
 	{
 		if(this.previousSrc != src) {
 			this.previousSrc = src;
-
-
 			this.dist = new int[2][Vertices.size()];
 			this.prev = new int[Vertices.size()]; 
 			boolean[] checked = new boolean[Vertices.size()+1];
-			//		ArrayList<Integer> checked = new ArrayList();
-
-
 			// Initialising distance array and previous stopId array
-
-
-
 			Iterator<Integer>  stopIdIterator = Vertices.keySet().iterator();
 			int count = 0;
-
-
 			//dist[v] ← INFINITY                 
 			//prev[v] ← UNDEFINED 
 			while(stopIdIterator.hasNext()) {
 				int stopId = (int) stopIdIterator.next();
-//				System.out.println("Printing StopId from the iterator " + stopId);
-
 				if (stopId == src) {
 					dist[0][count] = 0;
 				}
