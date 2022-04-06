@@ -77,26 +77,13 @@ public class ShortestPath {
 				else {
 					dist[0][count] = Integer.MAX_VALUE;
 				}
-
 				dist[1][count] = stopId;
 				prev[count] = -1;	
-
-
 				IndexMap.put(stopId, count);
 				checked[count] = false;
 				count++;
 				// Add v to Q
-
-
 			}
-
-			//		9017928, 5:45:00, 5:45:00,646,1,,0,0,
-			//		9017928, 5:45:50, 5:45:50,378,2,,0,0,0.3300
-			//		9017928, 5:46:28, 5:46:28,379,3,,0,0,0.5780
-			//		9017928, 5:47:33, 5:47:33,381,4,,0,0,1.0061
-			//		
-
-
 			int sizeOfVertices = Vertices.size();
 			for (int i = 0; i < sizeOfVertices -1; i++)  {
 				int u = min_distance(dist, checked);
@@ -114,22 +101,14 @@ public class ShortestPath {
 						if (!checked[IndexMap.get(v)] && IndexMap.containsKey(v)){
 
 							int alt = dist[0][u] + (int)workingEdges.get(j).weight;
-							// Problem is V not having the right index
 							int indexV = IndexMap.get(v);
-
 							// I said --> If alt > 0 and I am not sure if this is correct.
-
-
-
 							if(alt < dist[0][indexV] && alt > 0) {
 								dist[0][indexV] = alt;
 								prev[indexV] = u;
-//								System.out.println("Distance from " + src + " to " + v + " is " + alt);
 							}
 						}
 					}
-
-
 				}
 			}
 		}
