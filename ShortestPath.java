@@ -119,7 +119,7 @@ public class ShortestPath {
 			int currentVertex = IndexMap.get(target);
 			this.printPath(currentVertex, prev);
 		}
-	
+
 
 	}  
 	private void parseStopTimes(String stopTimes) {
@@ -153,8 +153,8 @@ public class ShortestPath {
 					Edge workingEdge = new Edge(nodeName, 1);
 					list.add(workingEdge);
 					Vertices.put(prevNodeName, list);
-//					System.out.print(prevNodeName + "->");
-//					workingEdge.toPrint();
+					//					System.out.print(prevNodeName + "->");
+					//					workingEdge.toPrint();
 				}
 				else {
 					ArrayList<Edge>list = new ArrayList<Edge>() ;
@@ -165,8 +165,8 @@ public class ShortestPath {
 					Edge workingEdge = new Edge(prevNodeName, 0);
 					list.add(workingEdge);
 					Vertices.put(prevNodeName, list);
-//					System.out.print(prevNodeName + "->");
-//					workingEdge.toPrint();
+					//					System.out.print(prevNodeName + "->");
+					//					workingEdge.toPrint();
 				}
 
 				prevNodeName = nodeName;
@@ -180,7 +180,7 @@ public class ShortestPath {
 			Edge workingEdge = new Edge(prevNodeName, 0);
 			list.add(workingEdge);
 			Vertices.put(prevNodeName, list);
-//			System.out.print(prevNodeName + "->");
+			//			System.out.print(prevNodeName + "->");
 
 
 		}	
@@ -284,7 +284,7 @@ public class ShortestPath {
 		SP.dijkstra(646, 1856);
 		System.out.println("");
 		SP.dijkstra(381, 1856);
-		//		System.out.println(dijkstra[5]);
+		
 
 	}
 }
