@@ -268,23 +268,53 @@ public class ShortestPath {
 	}
 
 	public static void main(String[] args) {
-		ShortestPath SP = new ShortestPath("src/stops.txt","src/transfers.txt", "src/stop_times.txt");
-		SP.dijkstra(646, 646);
-		System.out.println("");
-		SP.dijkstra(646, 1856);
-		System.out.println("");
-		SP.dijkstra(646, 11283);
-		System.out.println("");
-		SP.dijkstra(646, 386);
-		System.out.println("");
-		SP.dijkstra(646, 2);
-		System.out.println("");
-		SP.dijkstra(646, 381);
-		System.out.println("");
-		SP.dijkstra(646, 1856);
-		System.out.println("");
-		SP.dijkstra(381, 1856);
+
+		TST<Integer> st = new TST<Integer>();
+		System.out.println("Its doing something!");
+//        for (int i = 0; !StdIn.isEmpty(); i++) {
+////        	System.out.println("Its doing something2!");
+        String word = "short";
+        st.put("short", 0);
+        st.put("shoe", 1); 
+        st.put("shame", 1);
+        
+        
+        System.out.println("keysWithPrefix(\"sh\")");
+        for (String s : st.keysWithPrefix("sh"))
+            System.out.println(s);
+        
+        
+        System.out.println("keysWithPrefix(\"shor\")");
+        for (String s : st.keysWithPrefix("shor"))
+            System.out.println(s);
+        
+
+        System.out.println("keysThatMatch(\"shoe\")");
+        for (String s : st.keysThatMatch("shoe"))
+            System.out.println(s);
+    
+		}
+		
+		
+	
+		
+//		ShortestPath SP = new ShortestPath("src/stops.txt","src/transfers.txt", "src/stop_times.txt");		
+//		SP.dijkstra(646, 646);
+//		System.out.println("");
+//		SP.dijkstra(646, 1856);
+//		System.out.println("");
+//		SP.dijkstra(646, 11283);
+//		System.out.println("");
+//		SP.dijkstra(646, 386);
+//		System.out.println("");
+//		SP.dijkstra(646, 2);
+//		System.out.println("");
+//		SP.dijkstra(646, 381);
+//		System.out.println("");
+//		SP.dijkstra(646, 1856);
+//		System.out.println("");
+//		SP.dijkstra(381, 1856);
 		
 
-	}
+	
 }
