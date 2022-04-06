@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
+
 
 
 // https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm for dijkstras algorithm
@@ -21,21 +24,6 @@ import java.util.Scanner;
 
 
 public class ShortestPath {
-
-
-
-	public class Edge{
-		double weight;
-		int	destVertex;
-		Edge(int destVertex, double weight){
-			this.destVertex = destVertex;
-			this.weight = weight;
-		}
-
-		public void toPrint() {
-			System.out.println( destVertex + " -> " + weight);
-		}
-	}
 
 	HashMap<Integer, List<Edge>> Vertices = new HashMap<Integer, List<Edge>>();
 	int NO_PARENT = -1;
@@ -96,7 +84,7 @@ public class ShortestPath {
 			//prev[v] ← UNDEFINED 
 			while(stopIdIterator.hasNext()) {
 				int stopId = (int) stopIdIterator.next();
-				System.out.println("Printing StopId from the iterator " + stopId);
+//				System.out.println("Printing StopId from the iterator " + stopId);
 
 				if (stopId == src) {
 					dist[0][count] = 0;
@@ -151,7 +139,7 @@ public class ShortestPath {
 							if(alt < dist[0][indexV] && alt > 0) {
 								dist[0][indexV] = alt;
 								prev[indexV] = u;
-								System.out.println("Distance from " + src + " to " + v + " is " + alt);
+//								System.out.println("Distance from " + src + " to " + v + " is " + alt);
 							}
 						}
 					}
@@ -160,8 +148,14 @@ public class ShortestPath {
 				}
 			}
 		}
-		int currentVertex = IndexMap.get(target);
-		this.printPath(currentVertex, prev);
+		if (!IndexMap.containsKey(target)) {
+			System.out.println(target+" does not exist in this dataset");
+		}
+		else {
+			int currentVertex = IndexMap.get(target);
+			this.printPath(currentVertex, prev);
+		}
+	
 
 	}  
 	private void parseStopTimes(String stopTimes) {
@@ -195,8 +189,8 @@ public class ShortestPath {
 					Edge workingEdge = new Edge(nodeName, 1);
 					list.add(workingEdge);
 					Vertices.put(prevNodeName, list);
-					System.out.print(prevNodeName + "->");
-					workingEdge.toPrint();
+//					System.out.print(prevNodeName + "->");
+//					workingEdge.toPrint();
 				}
 				else {
 					ArrayList<Edge>list = new ArrayList<Edge>() ;
@@ -207,8 +201,8 @@ public class ShortestPath {
 					Edge workingEdge = new Edge(prevNodeName, 0);
 					list.add(workingEdge);
 					Vertices.put(prevNodeName, list);
-					System.out.print(prevNodeName + "->");
-					workingEdge.toPrint();
+//					System.out.print(prevNodeName + "->");
+//					workingEdge.toPrint();
 				}
 
 				prevNodeName = nodeName;
@@ -222,7 +216,7 @@ public class ShortestPath {
 			Edge workingEdge = new Edge(prevNodeName, 0);
 			list.add(workingEdge);
 			Vertices.put(prevNodeName, list);
-			System.out.print(prevNodeName + "->");
+//			System.out.print(prevNodeName + "->");
 
 
 		}	
@@ -310,12 +304,22 @@ public class ShortestPath {
 	}
 
 	public static void main(String[] args) {
-		ShortestPath SP = new ShortestPath("src/stops.txt","", "src/testing_files_stop_times.txt");
+		ShortestPath SP = new ShortestPath("src/stops.txt","src/transfers.txt", "src/stop_times.txt");
 		SP.dijkstra(646, 646);
+		System.out.println("");
 		SP.dijkstra(646, 1856);
-
-
-
+		System.out.println("");
+		SP.dijkstra(646, 11283);
+		System.out.println("");
+		SP.dijkstra(646, 386);
+		System.out.println("");
+		SP.dijkstra(646, 2);
+		System.out.println("");
+		SP.dijkstra(646, 381);
+		System.out.println("");
+		SP.dijkstra(646, 1856);
+		System.out.println("");
+		SP.dijkstra(381, 1856);
 		//		System.out.println(dijkstra[5]);
 
 	}
