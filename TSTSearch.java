@@ -31,8 +31,29 @@ public class TSTSearch {
 			while (input.hasNextLine()) {
 				String times = input.nextLine();
 				String[] data = times.split(",");
+				String[] location = data[2].split(" ");
+				
+				if(location[0].equals("WB")) {
+					data[2] = data[2].replace("WB ", "");
+					data[2] = data[2] + " WB";
+				}	
+				if(location[0].equals("SB")) {
+					data[2] = data[2].replace("SB ", "");
+					data[2] = data[2] + " SB";
+				}
+				if(location[0].equals("NB")) {
+					data[2] = data[2].replace("NB ", "");
+					data[2] = data[2] + " NB";
+				}
+				if(location[0].equals("EB")) {
+					data[2] = data[2].replace("EB ", "");
+					data[2] = data[2] + " EB";
+				}
+				
+				
+				
 				System.out.println(data[2]);
-
+				
 			}	
 
 
