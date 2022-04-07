@@ -49,7 +49,26 @@ public class TSTSearch {
 					data[2] = data[2].replace("EB ", "");
 					data[2] = data[2] + " EB";
 				}
-				
+				if(location[0].equals("FLAGSTOP")) {
+					data[2] = data[2].replace("FLAGSTOP ", "");
+					data[2] = data[2] + " FLAGSTOP";
+					if(location[1].equals("WB")) {
+						data[2] = data[2].replace("WB ", "");
+						data[2] = data[2] + " WB";
+					}	
+					if(location[1].equals("SB")) {
+						data[2] = data[2].replace("SB ", "");
+						data[2] = data[2] + " SB";
+					}
+					if(location[1].equals("NB")) {
+						data[2] = data[2].replace("NB ", "");
+						data[2] = data[2] + " NB";
+					}
+					if(location[1].equals("EB")) {
+						data[2] = data[2].replace("EB ", "");
+						data[2] = data[2] + " EB";
+					}
+				}
 				
 				
 				System.out.println(data[2]);
@@ -63,4 +82,4 @@ public class TSTSearch {
 	
 	
 }
-//git add -A; git commit -m "made changes to parseStops in the TST Class p1" ; git push origin master
+//git add -A; git commit -m "the file format is working somewhat might be problem with flagstop" ; git push origin master
