@@ -1,10 +1,12 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class TSTSearch {
-	
+	TST<Integer> st = new TST<Integer>();
+	HashMap<String, String> stringIndex = new HashMap<String, String>(); 
 	TSTSearch(String stopsFilename){		
 		parseStops(stopsFilename);
 		
@@ -12,11 +14,23 @@ public class TSTSearch {
 		
 		
 	}
-
+	
+	
+	public void printStops(String target) {
+		
+		for (String s : st.keysWithPrefix(target)) {
+          System.out.println(s);
+		  String toPrint = stringIndex.get(s);
+		  System.out.println(toPrint);
+		}
+	}
+	
+	
 	private void parseStops(String stopsFilename) {
 		if (stopsFilename == null) {
 			return;
 		}
+		int count =0;
 		File a = new File(stopsFilename);
 		if (a.length() != 0){
 			Scanner input = null;
@@ -29,8 +43,10 @@ public class TSTSearch {
 			String firstLine = input.nextLine();
 			//			System.out.println(firstLine);
 			while (input.hasNextLine()) {
-				String times = input.nextLine();
-				String[] data = times.split(",");
+				ArrayList<String> times = new ArrayList<String>();
+				String nextInput = input.nextLine();
+				times.add(nextInput);
+				String[] data = nextInput.split(",");
 				String[] location = data[2].split(" ");
 				
 				if(location[0].equals("WB")) {
@@ -70,9 +86,9 @@ public class TSTSearch {
 					}
 				}
 				
-				
-				System.out.println(data[2]);
-				
+				st.put(data[2], count);
+				stringIndex.put(data[2], nextInput);
+				count++;
 			}	
 
 
@@ -82,4 +98,4 @@ public class TSTSearch {
 	
 	
 }
-//git add -A; git commit -m "the file format is working somewhat might be problem with flagstop" ; git push origin master
+//git add -A; git commit -m "the file format is working somewhat might be problem with flagstop working" ; git push origin master

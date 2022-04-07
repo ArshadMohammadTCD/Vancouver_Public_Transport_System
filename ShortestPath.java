@@ -294,7 +294,7 @@ public class ShortestPath {
 //            System.out.println(s);
 		
 		TSTSearch st = new TSTSearch("src/stops.txt");
-		
+		st.printStops("ST");
 		}
 		
 		
