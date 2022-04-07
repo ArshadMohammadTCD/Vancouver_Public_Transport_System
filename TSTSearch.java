@@ -43,9 +43,8 @@ public class TSTSearch {
 			String firstLine = input.nextLine();
 			//			System.out.println(firstLine);
 			while (input.hasNextLine()) {
-				ArrayList<String> times = new ArrayList<String>();
+				
 				String nextInput = input.nextLine();
-				times.add(nextInput);
 				String[] data = nextInput.split(",");
 				String[] location = data[2].split(" ");
 				
@@ -98,4 +97,4 @@ public class TSTSearch {
 	
 	
 }
-//git add -A; git commit -m "the file format is working somewhat might be problem with flagstop working" ; git push origin master
+//git add -A; git commit -m "I think the TST Search is working" ; git push origin master

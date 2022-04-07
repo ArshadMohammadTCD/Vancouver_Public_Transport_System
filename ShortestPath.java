@@ -293,8 +293,13 @@ public class ShortestPath {
 //        for (String s : st.keysThatMatch("shoe"))
 //            System.out.println(s);
 		
-		TSTSearch st = new TSTSearch("src/stops.txt");
-		st.printStops("ST");
+//		TSTSearch st = new TSTSearch("src/stops.txt");
+//		st.printStops("ST");
+		
+		TripSearch TS = new TripSearch("src/stop_times.txt");
+		TS.returnStringOutput(" 5:25:00");
+		
+		
 		}
 		
 		
