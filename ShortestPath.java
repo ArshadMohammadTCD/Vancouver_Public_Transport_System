@@ -21,7 +21,7 @@ import javax.swing.JFrame;
 //https://www.youtube.com/watch?v=dUCkwBpg1qM
 //https://www.javainterviewpoint.com/iterate-through-hashmap/
 //https://www.geeksforgeeks.org/printing-paths-dijkstras-shortest-path-algorithm/
-
+//https://www.w3schools.com/java/java_user_input.asp
 
 public class ShortestPath {
 
@@ -34,9 +34,11 @@ public class ShortestPath {
 	ShortestPath(String stops, String transfers, String stopTimes)
 	{	
 		parseStops(stops);
+		System.out.print(".");
 		parseStopTimes(stopTimes);
+		System.out.print(".");
 		parseTransfers(transfers);
-
+		System.out.print(".\n");
 	}
 
 	int min_distance(int[][] dist, boolean checked[]) {
@@ -138,7 +140,7 @@ public class ShortestPath {
 			int prevTripId = -1;
 			int prevNodeName = -1;
 			String firstLine = input.nextLine();
-			System.out.println(firstLine);
+//			System.out.println(firstLine);
 			while (input.hasNextLine()) {
 				String times = input.nextLine();
 				String[] data = times.split(",");
@@ -295,9 +297,44 @@ public class ShortestPath {
 		
 //		TSTSearch st = new TSTSearch("src/stops.txt");
 //		st.printStops("ST");
+//		
+//		TripSearch TS = new TripSearch("src/stop_times.txt");
+//		TS.returnStringOutput(" 5:25:00");
+			Scanner readInput = new Scanner(System.in);  // Create a Scanner object
+		    System.out.println("Choose what you would like to do\n"
+		    				 + "1 - Shortest Path between 2 stops\n"
+		    				 + "2 - Search for a stop\n"
+		    				 + "3 - Find a bus routes for a given arrival time");
+	
+		    int input = readInput.nextInt();  // Read user input
+		    
+		    
+		    if(input == 1) {
+		    	
+		    	System.out.print("Loading");
+		    	ShortestPath SP = new ShortestPath("src/stops.txt","src/transfers.txt", "src/stop_times.txt");
+		    	
+		    	System.out.println("Identify your source node");
+		    	int sourceNode = readInput.nextInt();
+		    	System.out.println("Identify your target node");
+		    	int targetNode = readInput.nextInt();
+		    	SP.dijkstra(sourceNode, targetNode);
+		    	
+		    	
+		    }
+		    else if(input == 2) {
+		    	System.out.println("Search for a stop");
+		    }
+		    else if(input == 3){
+		    	System.out.println("Find a bus routes for a given arrival time");
+		    
+		    }
+		    
+		    		    
 		
-		TripSearch TS = new TripSearch("src/stop_times.txt");
-		TS.returnStringOutput(" 5:25:00");
+		
+		
+		
 		
 		
 		}
