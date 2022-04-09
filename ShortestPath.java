@@ -140,7 +140,7 @@ public class ShortestPath {
 			int prevTripId = -1;
 			int prevNodeName = -1;
 			String firstLine = input.nextLine();
-//			System.out.println(firstLine);
+			//			System.out.println(firstLine);
 			while (input.hasNextLine()) {
 				String times = input.nextLine();
 				String[] data = times.split(",");
@@ -271,94 +271,104 @@ public class ShortestPath {
 
 	public static void main(String[] args) {
 
-//		TST<Integer> st = new TST<Integer>();
-//		System.out.println("Its doing something!");
-////        for (int i = 0; !StdIn.isEmpty(); i++) {
-//////        	System.out.println("Its doing something2!");
-//        String word = "short";
-//        st.put("short", 0);
-//        st.put("shoe", 1); 
-//        st.put("shame", 1);
-//        
-//        
-//        System.out.println("keysWithPrefix(\"sh\")");
-//        for (String s : st.keysWithPrefix("sh"))
-//            System.out.println(s);
-//        
-//        
-//        System.out.println("keysWithPrefix(\"shor\")");
-//        for (String s : st.keysWithPrefix("shor"))
-//            System.out.println(s);
-//        
-//
-//        System.out.println("keysThatMatch(\"shoe\")");
-//        for (String s : st.keysThatMatch("shoe"))
-//            System.out.println(s);
-		
-//		TSTSearch st = new TSTSearch("src/stops.txt");
-//		st.printStops("ST");
-//		
-//		TripSearch TS = new TripSearch("src/stop_times.txt");
-//		TS.returnStringOutput(" 5:25:00");
-			Scanner readInput = new Scanner(System.in);  // Create a Scanner object
-		    System.out.println("Choose what you would like to do\n"
-		    				 + "1 - Shortest Path between 2 stops\n"
-		    				 + "2 - Search for a stop\n"
-		    				 + "3 - Find a bus routes for a given arrival time");
-	
-		    int input = readInput.nextInt();  // Read user input
-		    
-		    
-		    if(input == 1) {
-		    	
-		    	System.out.print("Loading");
-		    	ShortestPath SP = new ShortestPath("src/stops.txt","src/transfers.txt", "src/stop_times.txt");
-		    	
-		    	System.out.println("Identify your source node");
-		    	int sourceNode = readInput.nextInt();
-		    	System.out.println("Identify your target node");
-		    	int targetNode = readInput.nextInt();
-		    	SP.dijkstra(sourceNode, targetNode);
-		    	
-		    	
-		    }
-		    else if(input == 2) {
-		    	System.out.println("Search for a stop");
-		    }
-		    else if(input == 3){
-		    	System.out.println("Find a bus routes for a given arrival time");
-		    
-		    }
-		    
-		    		    
-		
-		
-		
-		
-		
-		
-		}
-		
-		
-	
-		
-//		ShortestPath SP = new ShortestPath("src/stops.txt","src/transfers.txt", "src/stop_times.txt");		
-//		SP.dijkstra(646, 646);
-//		System.out.println("");
-//		SP.dijkstra(646, 1856);
-//		System.out.println("");
-//		SP.dijkstra(646, 11283);
-//		System.out.println("");
-//		SP.dijkstra(646, 386);
-//		System.out.println("");
-//		SP.dijkstra(646, 2);
-//		System.out.println("");
-//		SP.dijkstra(646, 381);
-//		System.out.println("");
-//		SP.dijkstra(646, 1856);
-//		System.out.println("");
-//		SP.dijkstra(381, 1856);
-		
+		//		TST<Integer> st = new TST<Integer>();
+		//		System.out.println("Its doing something!");
+		////        for (int i = 0; !StdIn.isEmpty(); i++) {
+		//////        	System.out.println("Its doing something2!");
+		//        String word = "short";
+		//        st.put("short", 0);
+		//        st.put("shoe", 1); 
+		//        st.put("shame", 1);
+		//        
+		//        
+		//        System.out.println("keysWithPrefix(\"sh\")");
+		//        for (String s : st.keysWithPrefix("sh"))
+		//            System.out.println(s);
+		//        
+		//        
+		//        System.out.println("keysWithPrefix(\"shor\")");
+		//        for (String s : st.keysWithPrefix("shor"))
+		//            System.out.println(s);
+		//        
+		//
+		//        System.out.println("keysThatMatch(\"shoe\")");
+		//        for (String s : st.keysThatMatch("shoe"))
+		//            System.out.println(s);
 
-	
+		//		TSTSearch st = new TSTSearch("src/stops.txt");
+		//		st.printStops("ST");
+		//		
+		//		TripSearch TS = new TripSearch("src/stop_times.txt");
+		//		TS.returnStringOutput(" 5:25:00");
+		Scanner readInput = new Scanner(System.in);  // Create a Scanner object
+		System.out.println("Choose what you would like to do\n"
+				+ "1 - Shortest Path between 2 stops\n"
+				+ "2 - Search for a stop\n"
+				+ "3 - Find a bus routes for a given arrival time");
+
+		int input = readInput.nextInt();  // Read user input
+
+		if(input == 1) {
+
+			System.out.print("Loading");
+			ShortestPath SP = new ShortestPath("src/stops.txt","src/transfers.txt", "src/stop_times.txt");
+			System.out.println("Identify your source node");
+			boolean isInShortestPath = true;
+			while(isInShortestPath) {
+				int sourceNode = readInput.nextInt();
+				System.out.println("Identify your target node");
+				int targetNode = readInput.nextInt();
+				SP.dijkstra(sourceNode, targetNode);
+				System.out.println("Would you like to find another path - Yes/No");
+				String answer = readInput.nextLine();
+				if(answer.equalsIgnoreCase("Yes")) {
+					isInShortestPath = true;
+				}
+				else if(answer.equalsIgnoreCase("No")) {
+					isInShortestPath = false;
+				}
+				
+			}
+
+
+		}
+		else if(input == 2) {
+			System.out.println("Search for a stop");
+		}
+		else if(input == 3){
+			System.out.println("Find a bus routes for a given arrival time");
+
+		}
+
+
+
+
+
+
+
+
+	}
+
+
+
+
+	//		ShortestPath SP = new ShortestPath("src/stops.txt","src/transfers.txt", "src/stop_times.txt");		
+	//		SP.dijkstra(646, 646);
+	//		System.out.println("");
+	//		SP.dijkstra(646, 1856);
+	//		System.out.println("");
+	//		SP.dijkstra(646, 11283);
+	//		System.out.println("");
+	//		SP.dijkstra(646, 386);
+	//		System.out.println("");
+	//		SP.dijkstra(646, 2);
+	//		System.out.println("");
+	//		SP.dijkstra(646, 381);
+	//		System.out.println("");
+	//		SP.dijkstra(646, 1856);
+	//		System.out.println("");
+	//		SP.dijkstra(381, 1856);
+
+
+
 }
