@@ -327,7 +327,9 @@ public class ShortestPath {
 				else if(answer.equalsIgnoreCase("No")) {
 					isInShortestPath = false;
 				}
-				
+				else {
+					
+				}
 			}
 
 
