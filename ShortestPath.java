@@ -312,15 +312,17 @@ public class ShortestPath {
 
 			System.out.print("Loading");
 			ShortestPath SP = new ShortestPath("src/stops.txt","src/transfers.txt", "src/stop_times.txt");
-			System.out.println("Identify your source node");
+			
 			boolean isInShortestPath = true;
 			while(isInShortestPath) {
+				System.out.println("Identify your source node");
 				int sourceNode = readInput.nextInt();
 				System.out.println("Identify your target node");
 				int targetNode = readInput.nextInt();
 				SP.dijkstra(sourceNode, targetNode);
 				System.out.println("Would you like to find another path - Yes/No");
-				String answer = readInput.nextLine();
+				String answer = readInput.next();
+				System.out.println(answer);
 				if(answer.equalsIgnoreCase("Yes")) {
 					isInShortestPath = true;
 				}
@@ -328,7 +330,7 @@ public class ShortestPath {
 					isInShortestPath = false;
 				}
 				else {
-					
+					System.out.println("Invalid input - Try again");
 				}
 			}
 
