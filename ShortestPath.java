@@ -312,7 +312,7 @@ public class ShortestPath {
 
 			System.out.print("Loading");
 			ShortestPath SP = new ShortestPath("src/stops.txt","src/transfers.txt", "src/stop_times.txt");
-			
+
 			boolean isInShortestPath = true;
 			while(isInShortestPath) {
 				System.out.println("Identify your source node");
@@ -320,17 +320,23 @@ public class ShortestPath {
 				System.out.println("Identify your target node");
 				int targetNode = readInput.nextInt();
 				SP.dijkstra(sourceNode, targetNode);
-				System.out.println("Would you like to find another path - Yes/No");
-				String answer = readInput.next();
-				System.out.println(answer);
-				if(answer.equalsIgnoreCase("Yes")) {
-					isInShortestPath = true;
-				}
-				else if(answer.equalsIgnoreCase("No")) {
-					isInShortestPath = false;
-				}
-				else {
-					System.out.println("Invalid input - Try again");
+				System.out.println("\nWould you like to find another path - Yes/No");
+				boolean inLoop = true;
+				while(inLoop) {
+					String answer = readInput.next();
+					if(answer.equalsIgnoreCase("Yes")) {
+						isInShortestPath = true;
+						inLoop = false;
+					}
+					else if(answer.equalsIgnoreCase("No")) {
+						isInShortestPath = false;
+						inLoop = false;
+					}
+					else {
+						System.out.println("Invalid input - Try again");
+						System.out.println("Would you like to find another path - Yes/No");
+						inLoop = true;
+					}
 				}
 			}
 
