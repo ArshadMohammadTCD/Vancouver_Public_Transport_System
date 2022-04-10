@@ -61,6 +61,17 @@ public class ShortestPath {
 
 	public void dijkstra(int src, int target) 
 	{
+		if(Vertices.containsKey(src)) {
+			if (Vertices.get(src).isEmpty()) {
+				System.out.println(src + " is a drop off only point");
+				return;
+			}
+			else if(Vertices.get(src).get(0).destVertex == src){
+				System.out.println(src + " is a drop off only point");
+				return;
+			}
+			
+		}
 		if(this.previousSrc != src) {
 			this.previousSrc = src;
 			this.dist = new int[2][Vertices.size()];
@@ -116,10 +127,22 @@ public class ShortestPath {
 		}
 		if (!IndexMap.containsKey(target)) {
 			System.out.println(target+" does not exist in this dataset");
+			if(!IndexMap.containsKey(src)) {
+				System.out.println(src+" does not exist in this dataset");
+			}
+		}
+		else if(!IndexMap.containsKey(src)){
+			System.out.println(src+" does not exist in this dataset");
+			if (!IndexMap.containsKey(target)) {
+				System.out.println(target+" does not exist in this dataset");
+			}
 		}
 		else {
 			int currentVertex = IndexMap.get(target);
 			this.printPath(currentVertex, prev);
+			if(printCount <= 1) {
+				System.out.print("and "+src+" do not have a valid path");
+			}
 		}
 
 
@@ -255,7 +278,7 @@ public class ShortestPath {
 		}
 	}
 
-
+	int printCount = 0;
 	private void printPath(int currentVertex,
 			int[] parents) {
 
@@ -266,6 +289,7 @@ public class ShortestPath {
 			return;
 		}
 		printPath(parents[currentVertex], parents);
+		printCount++;
 		System.out.print(dist[1][currentVertex] + " ");
 	}
 
@@ -300,7 +324,12 @@ public class ShortestPath {
 		//		
 		//		TripSearch TS = new TripSearch("src/stop_times.txt");
 		//		TS.returnStringOutput(" 5:25:00");
+		
 		Scanner readInput = new Scanner(System.in);  // Create a Scanner object
+		boolean mainLoop = true;
+//		while(mainLoop) {
+//			
+//		}
 		System.out.println("Choose what you would like to do\n"
 				+ "1 - Shortest Path between 2 stops\n"
 				+ "2 - Search for a stop\n"
@@ -315,10 +344,33 @@ public class ShortestPath {
 
 			boolean isInShortestPath = true;
 			while(isInShortestPath) {
-				System.out.println("Identify your source node");
-				int sourceNode = readInput.nextInt();
-				System.out.println("Identify your target node");
-				int targetNode = readInput.nextInt();
+				
+				int sourceNode = 0;
+				int targetNode = 0;
+				boolean inSourceNodeLoop = true;
+				boolean inTargetNodeLoop = true;
+				
+				while(inSourceNodeLoop) {
+					System.out.println("Identify your source node");
+					try {
+						String input1 = readInput.next();
+					    sourceNode = Integer.parseInt(input1);
+					    inSourceNodeLoop = false;
+					} catch (NumberFormatException e) {
+					    System.out.println("Invalid input, please input an Integer");
+					}
+				}
+				
+				while(inTargetNodeLoop) {
+					System.out.println("Identify your target node");
+					try {
+						String input1 = readInput.next();
+					    targetNode = Integer.parseInt(input1);
+					    inTargetNodeLoop = false;
+					} catch (NumberFormatException e) {
+					    System.out.println("Invalid input, please input an Integer");
+					}
+				}
 				SP.dijkstra(sourceNode, targetNode);
 				System.out.println("\nWould you like to find another path - Yes/No");
 				boolean inLoop = true;
@@ -349,21 +401,23 @@ public class ShortestPath {
 			System.out.println("Find a bus routes for a given arrival time");
 
 		}
+		else {
+			System.out.println("Enter again");
+		}
+		
 
 
 
 
 
 
-
-
-	}
-
+//	}
 
 
 
-	//		ShortestPath SP = new ShortestPath("src/stops.txt","src/transfers.txt", "src/stop_times.txt");		
-	//		SP.dijkstra(646, 646);
+//
+//			ShortestPath SP = new ShortestPath("src/stops.txt","", "src/testing_files_stop_times.txt");		
+//			SP.dijkstra(646, 1856);
 	//		System.out.println("");
 	//		SP.dijkstra(646, 1856);
 	//		System.out.println("");
@@ -379,6 +433,6 @@ public class ShortestPath {
 	//		System.out.println("");
 	//		SP.dijkstra(381, 1856);
 
-
+	}
 
 }
