@@ -399,13 +399,26 @@ public class ShortestPath {
 
 			}
 			else if(input == 2) {
-				System.out.println("Search for a stop");
+				TSTSearch st = new TSTSearch("src/stops.txt");
+				
+				boolean stopSearch = true;
+				while(stopSearch) {
+					System.out.println("\n\nSearch for a stop - Make sure input is in CAPITALS "
+							+ "\nOr write 'Quit'");
+					String stopToSearch = readInput.next();
+					if (stopToSearch.equalsIgnoreCase("quit")) {
+						stopSearch = false;
+					}
+					else {
+						st.printStops(stopToSearch);	
+					}	
+				}
 			}
 			else if(input == 3){
 				System.out.println("Find a bus routes for a given arrival time");
 
 			}
-			else if(input == 0) {
+			else if(input == 0) { 
 				mainLoop = false;
 			}
 			else {
