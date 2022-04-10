@@ -70,7 +70,7 @@ public class ShortestPath {
 				System.out.println(src + " is a drop off only point");
 				return;
 			}
-			
+
 		}
 		if(this.previousSrc != src) {
 			this.previousSrc = src;
@@ -324,114 +324,122 @@ public class ShortestPath {
 		//		
 		//		TripSearch TS = new TripSearch("src/stop_times.txt");
 		//		TS.returnStringOutput(" 5:25:00");
-		
+
 		Scanner readInput = new Scanner(System.in);  // Create a Scanner object
 		boolean mainLoop = true;
-//		while(mainLoop) {
-//			
-//		}
-		System.out.println("Choose what you would like to do\n"
-				+ "1 - Shortest Path between 2 stops\n"
-				+ "2 - Search for a stop\n"
-				+ "3 - Find a bus routes for a given arrival time");
+		while(mainLoop) {
+			System.out.println("Choose what you would like to do\n"
+					+ "1 - Shortest Path between 2 stops\n"
+					+ "2 - Search for a stop\n"
+					+ "3 - Find a bus routes for a given arrival time\n"
+					+ "0 - To quit");
+			int input = -1;
+			
+			try {
+				String input1 = readInput.next();
+				input = Integer.parseInt(input1);
+			} catch (NumberFormatException e) {
+				System.out.println("Invalid input, please input an Integer");
+			}
+			if(input == 1) {
 
-		int input = readInput.nextInt();  // Read user input
+				System.out.print("Loading");
+				ShortestPath SP = new ShortestPath("src/stops.txt","src/transfers.txt", "src/stop_times.txt");
 
-		if(input == 1) {
+				boolean isInShortestPath = true;
+				while(isInShortestPath) {
 
-			System.out.print("Loading");
-			ShortestPath SP = new ShortestPath("src/stops.txt","src/transfers.txt", "src/stop_times.txt");
+					int sourceNode = 0;
+					int targetNode = 0;
+					boolean inSourceNodeLoop = true;
+					boolean inTargetNodeLoop = true;
 
-			boolean isInShortestPath = true;
-			while(isInShortestPath) {
-				
-				int sourceNode = 0;
-				int targetNode = 0;
-				boolean inSourceNodeLoop = true;
-				boolean inTargetNodeLoop = true;
-				
-				while(inSourceNodeLoop) {
-					System.out.println("Identify your source node");
-					try {
-						String input1 = readInput.next();
-					    sourceNode = Integer.parseInt(input1);
-					    inSourceNodeLoop = false;
-					} catch (NumberFormatException e) {
-					    System.out.println("Invalid input, please input an Integer");
+					while(inSourceNodeLoop) {
+						System.out.println("Identify your source node");
+						try {
+							String input1 = readInput.next();
+							sourceNode = Integer.parseInt(input1);
+							inSourceNodeLoop = false;
+						} catch (NumberFormatException e) {
+							System.out.println("Invalid input, please input an Integer");
+						}
+					}
+
+					while(inTargetNodeLoop) {
+						System.out.println("Identify your target node");
+						try {
+							String input1 = readInput.next();
+							targetNode = Integer.parseInt(input1);
+							inTargetNodeLoop = false;
+						} catch (NumberFormatException e) {
+							System.out.println("Invalid input, please input an Integer");
+						}
+					}
+					SP.dijkstra(sourceNode, targetNode);
+					System.out.println("\nWould you like to find another path - Yes/No");
+					boolean inLoop = true;
+					while(inLoop) {
+						String answer = readInput.next();
+						if(answer.equalsIgnoreCase("Yes")) {
+							isInShortestPath = true;
+							inLoop = false;
+						}
+						else if(answer.equalsIgnoreCase("No")) {
+							isInShortestPath = false;
+							inLoop = false;
+						}
+						else {
+							System.out.println("Invalid input - Try again");
+							System.out.println("Would you like to find another path - 'Yes' or 'No' - (Return to main menu)");
+							inLoop = true;
+						}
 					}
 				}
+
+
+			}
+			else if(input == 2) {
+				System.out.println("Search for a stop");
+			}
+			else if(input == 3){
+				System.out.println("Find a bus routes for a given arrival time");
+
+			}
+			else if(input == 0) {
+				mainLoop = false;
+			}
+			else {
+				System.out.println("Invalid input Enter again");
 				
-				while(inTargetNodeLoop) {
-					System.out.println("Identify your target node");
-					try {
-						String input1 = readInput.next();
-					    targetNode = Integer.parseInt(input1);
-					    inTargetNodeLoop = false;
-					} catch (NumberFormatException e) {
-					    System.out.println("Invalid input, please input an Integer");
-					}
-				}
-				SP.dijkstra(sourceNode, targetNode);
-				System.out.println("\nWould you like to find another path - Yes/No");
-				boolean inLoop = true;
-				while(inLoop) {
-					String answer = readInput.next();
-					if(answer.equalsIgnoreCase("Yes")) {
-						isInShortestPath = true;
-						inLoop = false;
-					}
-					else if(answer.equalsIgnoreCase("No")) {
-						isInShortestPath = false;
-						inLoop = false;
-					}
-					else {
-						System.out.println("Invalid input - Try again");
-						System.out.println("Would you like to find another path - Yes/No");
-						inLoop = true;
-					}
-				}
 			}
 
-
 		}
-		else if(input == 2) {
-			System.out.println("Search for a stop");
-		}
-		else if(input == 3){
-			System.out.println("Find a bus routes for a given arrival time");
-
-		}
-		else {
-			System.out.println("Enter again");
-		}
-		
 
 
 
 
 
-
-//	}
-
+		//	}
 
 
-//
-//			ShortestPath SP = new ShortestPath("src/stops.txt","", "src/testing_files_stop_times.txt");		
-//			SP.dijkstra(646, 1856);
-	//		System.out.println("");
-	//		SP.dijkstra(646, 1856);
-	//		System.out.println("");
-	//		SP.dijkstra(646, 11283);
-	//		System.out.println("");
-	//		SP.dijkstra(646, 386);
-	//		System.out.println("");
-	//		SP.dijkstra(646, 2);
-	//		System.out.println("");
-	//		SP.dijkstra(646, 381);
-	//		System.out.println("");
-	//		SP.dijkstra(646, 1856);
-	//		System.out.println("");
-	//		SP.dijkstra(381, 1856);
+
+		//
+		//			ShortestPath SP = new ShortestPath("src/stops.txt","", "src/testing_files_stop_times.txt");		
+		//			SP.dijkstra(646, 1856);
+		//		System.out.println("");
+		//		SP.dijkstra(646, 1856);
+		//		System.out.println("");
+		//		SP.dijkstra(646, 11283);
+		//		System.out.println("");
+		//		SP.dijkstra(646, 386);
+		//		System.out.println("");
+		//		SP.dijkstra(646, 2);
+		//		System.out.println("");
+		//		SP.dijkstra(646, 381);
+		//		System.out.println("");
+		//		SP.dijkstra(646, 1856);
+		//		System.out.println("");
+		//		SP.dijkstra(381, 1856);
 
 	}
 
