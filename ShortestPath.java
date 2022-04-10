@@ -422,9 +422,26 @@ public class ShortestPath {
 					System.out.println("Find a bus routes for a given arrival time or write 'quit' ");
 					String time = readInput.next();
 					String[] splitUpTime = time.split(":");
+					Boolean invalidatedInput = false;
+					
+					try {
+						int time1 = Integer.parseInt(splitUpTime[0]);
+						int time2 = Integer.parseInt(splitUpTime[1]);
+						int time3 = Integer.parseInt(splitUpTime[2]);
+					} catch (NumberFormatException e) {
+						
+						invalidatedInput = true;
+					}
+					
+					
 					if(time.equalsIgnoreCase("quit")) {
 						timeSearch = false;
 					}
+					
+					else if(invalidatedInput == true) {
+						System.out.println("Invalid input, please input an Integer");
+					}
+						
 					else if(Integer.parseInt(splitUpTime[0]) > 23 || Integer.parseInt(splitUpTime[1]) > 59 || Integer.parseInt(splitUpTime[2]) > 59
 							|| Integer.parseInt(splitUpTime[0]) < 0 || Integer.parseInt(splitUpTime[1]) < 0 || Integer.parseInt(splitUpTime[2]) < 0) {
 						System.out.println("Invalid input make sure the input is between 00:00:00 and 23:59:59");
