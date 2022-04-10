@@ -418,16 +418,22 @@ public class ShortestPath {
 				boolean timeSearch = true;
 				System.out.println("Find a bus routes for a given arrival time");
 				TripSearch TS = new TripSearch("src/stop_times.txt");
-				String time = readInput.next();
-				String[] splitUpTime = time.split(":");
-				if(Integer.parseInt(splitUpTime[0]) > 23 || Integer.parseInt(splitUpTime[1]) > 59 || Integer.parseInt(splitUpTime[2]) > 59
-						|| Integer.parseInt(splitUpTime[0]) < 0 || Integer.parseInt(splitUpTime[1]) < 0 || Integer.parseInt(splitUpTime[2]) < 0) {
-					System.out.println("Invalid input make sure the input is between 00:00:00 and 23:59:59");
+				while(timeSearch) {
+					String time = readInput.next();
+					String[] splitUpTime = time.split(":");
+					if(Integer.parseInt(splitUpTime[0]) > 23 || Integer.parseInt(splitUpTime[1]) > 59 || Integer.parseInt(splitUpTime[2]) > 59
+							|| Integer.parseInt(splitUpTime[0]) < 0 || Integer.parseInt(splitUpTime[1]) < 0 || Integer.parseInt(splitUpTime[2]) < 0) {
+						System.out.println("Invalid input make sure the input is between 00:00:00 and 23:59:59");
+					}
+					else if(time.equalsIgnoreCase("quit")) {
+						timeSearch = false;
+					}
+					else {
+						time = " " +time;
+						TS.returnStringOutput(time);
+					}
 				}
-				else {
-					time = " " +time;
-					TS.returnStringOutput(time);
-				}
+				
 				
 				
 				
