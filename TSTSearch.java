@@ -19,7 +19,7 @@ public class TSTSearch {
 	public void printStops(String target) {
 		
 		for (String s : st.keysWithPrefix(target)) {
-          System.out.println(s);
+          System.out.println("\n"+s);
 		  String toPrint = stringIndex.get(s);
 		  System.out.println(toPrint);
 		}
