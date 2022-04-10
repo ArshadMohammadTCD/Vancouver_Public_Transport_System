@@ -31,8 +31,7 @@ public class ShortestPath {
 	HashMap<Integer, Integer> IndexMap = new HashMap<Integer, Integer>();
 
 
-	ShortestPath(String stops, String transfers, String stopTimes)
-	{	
+	ShortestPath(String stops, String transfers, String stopTimes)	{	
 		parseStops(stops);
 		System.out.print(".");
 		parseStopTimes(stopTimes);
@@ -50,8 +49,6 @@ public class ShortestPath {
 				index = i;
 			}
 		}
-
-
 		return index;
 	}	
 
@@ -70,7 +67,6 @@ public class ShortestPath {
 				System.out.println(src + " is a drop off only point");
 				return;
 			}
-
 		}
 		if(this.previousSrc != src) {
 			this.previousSrc = src;
@@ -157,13 +153,11 @@ public class ShortestPath {
 			try {
 				input = new Scanner(a);
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			int prevTripId = -1;
 			int prevNodeName = -1;
 			String firstLine = input.nextLine();
-			//			System.out.println(firstLine);
 			while (input.hasNextLine()) {
 				String times = input.nextLine();
 				String[] data = times.split(",");
@@ -178,8 +172,6 @@ public class ShortestPath {
 					Edge workingEdge = new Edge(nodeName, 1);
 					list.add(workingEdge);
 					Vertices.put(prevNodeName, list);
-					//					System.out.print(prevNodeName + "->");
-					//					workingEdge.toPrint();
 				}
 				else {
 					ArrayList<Edge>list = new ArrayList<Edge>() ;
@@ -190,24 +182,17 @@ public class ShortestPath {
 					Edge workingEdge = new Edge(prevNodeName, 0);
 					list.add(workingEdge);
 					Vertices.put(prevNodeName, list);
-					//					System.out.print(prevNodeName + "->");
-					//					workingEdge.toPrint();
 				}
-
 				prevNodeName = nodeName;
 				prevTripId = tripId;
 			}
 			ArrayList<Edge> list = new ArrayList<Edge>(); 
 			if (Vertices.containsKey(prevNodeName)) {
 				list = (ArrayList<Edge>)Vertices.get(prevNodeName);
-
 			}
 			Edge workingEdge = new Edge(prevNodeName, 0);
 			list.add(workingEdge);
 			Vertices.put(prevNodeName, list);
-			//			System.out.print(prevNodeName + "->");
-
-
 		}	
 	}
 	private void parseTransfers(String transfers) {
@@ -224,7 +209,6 @@ public class ShortestPath {
 				e.printStackTrace();
 			}
 			String firstLine = input.nextLine();
-			//			System.out.println(firstLine);
 			while (input.hasNextLine()) {
 				String times = input.nextLine();
 				String[] data = times.split(",");
@@ -238,26 +222,16 @@ public class ShortestPath {
 				else {
 					weight = (Integer.parseInt(data[3])/100);
 				}
-
+				
 				// If stopId has negative numbers try change this
-
 				ArrayList<Edge> list = new ArrayList<Edge>(); 
-
 				if (Vertices.containsKey(originVertex)) {
 					list = (ArrayList<Edge>)Vertices.get(originVertex);
 				}
-
 				Edge workingEdge = new Edge(destVertex, weight);
-
 				list.add(workingEdge);
 				Vertices.put(originVertex, list);
-				//				System.out.print(originVertex + "->");
-				//				workingEdge.toPrint();
-
-
 			}	
-
-
 		}	
 	}
 	private void parseStops(String stops) 
@@ -294,37 +268,6 @@ public class ShortestPath {
 	}
 
 	public static void main(String[] args) {
-
-		//		TST<Integer> st = new TST<Integer>();
-		//		System.out.println("Its doing something!");
-		////        for (int i = 0; !StdIn.isEmpty(); i++) {
-		//////        	System.out.println("Its doing something2!");
-		//        String word = "short";
-		//        st.put("short", 0);
-		//        st.put("shoe", 1); 
-		//        st.put("shame", 1);
-		//        
-		//        
-		//        System.out.println("keysWithPrefix(\"sh\")");
-		//        for (String s : st.keysWithPrefix("sh"))
-		//            System.out.println(s);
-		//        
-		//        
-		//        System.out.println("keysWithPrefix(\"shor\")");
-		//        for (String s : st.keysWithPrefix("shor"))
-		//            System.out.println(s);
-		//        
-		//
-		//        System.out.println("keysThatMatch(\"shoe\")");
-		//        for (String s : st.keysThatMatch("shoe"))
-		//            System.out.println(s);
-
-		//		TSTSearch st = new TSTSearch("src/stops.txt");
-		//		st.printStops("ST");
-		//		
-		//		TripSearch TS = new TripSearch("src/stop_times.txt");
-		//		TS.returnStringOutput(" 5:25:00");
-
 		Scanner readInput = new Scanner(System.in);  // Create a Scanner object
 		boolean mainLoop = true;
 		while(mainLoop) {
@@ -395,8 +338,6 @@ public class ShortestPath {
 						}
 					}
 				}
-
-
 			}
 			else if(input == 2) {
 				TSTSearch st = new TSTSearch("src/stops.txt");
@@ -451,49 +392,13 @@ public class ShortestPath {
 						TS.returnStringOutput(time);
 					}
 				}
-				
-				
-				
-				
-				
-				
 			}
 			else if(input == 0) { 
 				mainLoop = false;
 			}
 			else {
-				System.out.println("Invalid input Enter again");
-				
+				System.out.println("Invalid input Enter again");	
 			}
-
 		}
-
-
-
-
-
-		//	}
-
-
-
-		//
-		//			ShortestPath SP = new ShortestPath("src/stops.txt","", "src/testing_files_stop_times.txt");		
-		//			SP.dijkstra(646, 1856);
-		//		System.out.println("");
-		//		SP.dijkstra(646, 1856);
-		//		System.out.println("");
-		//		SP.dijkstra(646, 11283);
-		//		System.out.println("");
-		//		SP.dijkstra(646, 386);
-		//		System.out.println("");
-		//		SP.dijkstra(646, 2);
-		//		System.out.println("");
-		//		SP.dijkstra(646, 381);
-		//		System.out.println("");
-		//		SP.dijkstra(646, 1856);
-		//		System.out.println("");
-		//		SP.dijkstra(381, 1856);
-
 	}
-
 }
